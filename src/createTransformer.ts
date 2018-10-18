@@ -19,6 +19,9 @@ import {Options} from './models/Options';
  * styledFunction.attrs(attributes)
 */
 function isStyledFunction(node: ts.Node): boolean {
+   if (isCallExpression(node) && node.arguments.length === 1 && isStyledFunction(node.arguments[0])) {
+      return true;
+   }
     if (isPropertyAccessExpression(node)) {
         if (isStyledObject(node.expression)) {
             return true;
